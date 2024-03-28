@@ -65,6 +65,11 @@ int compare(void* a, void* b){
   return (x == y) ? 0 : (x < y) ? -1 : 1;
 }
 
+// función para copiar los datos en una ubicación de memoria (si es necesario)
+void copiarDatos(void* dest, const void* src, size_t size){
+  memcpy(dest, src, size);
+}
+
 // 'list' es una lista ordenada de enteros
 GList* sglist_insertar(GList** list, void *data, FuncCopia fCopia, FuncComparadoraPtr funcComparadora){
   if(sglist_vacia(*list) == 1){
