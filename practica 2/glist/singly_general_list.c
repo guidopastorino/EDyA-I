@@ -94,7 +94,7 @@ void free_list(GList* list){
 int main(){
   GList* list = initialize_list(sizeof(int));
   for(int i = 10; i<=50; i+=10){
-    insert_end(&list, &i);
+    insert_end(&list, (void*)&i);
   }
 
   void (*fPtr)(void*) = &printInt;
