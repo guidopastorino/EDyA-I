@@ -60,6 +60,18 @@ void delete_begin(GList** list){
   free(temp);
 }
 
+void delete_end(GList** list){
+  assert((*list)->head != NULL);
+  if((*list)->head->next == NULL){
+    delete_begin(list);
+    return;
+  }
+  GNode* current;
+  for(current = (*list)->head; current->next->next != NULL; current = current->next);
+  free(current->next);
+  current->next = NULL;
+}
+
 void printInt(void* data){
   printf("%d -> ", *(int*)data);
 }
@@ -90,6 +102,10 @@ int main(){
   imprimir_lista(list, fPtr);
 
   delete_begin(&list);
+
+  imprimir_lista(list, fPtr);
+
+  delete_end(&list);
 
   imprimir_lista(list, fPtr);
 
