@@ -68,7 +68,7 @@ void delete_subsecuences_that_adds_zero(SNode** head) {
       temp = temp->next;
     }
     if(temp == NULL){
-      temp = current;
+      prev = current;
       current = current->next;
     }
   }
