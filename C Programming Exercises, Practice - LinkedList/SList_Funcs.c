@@ -27,6 +27,15 @@ void insert_end(Node** head, int data){
   }
 }
 
+int list_length(Node* head){
+  int len = 0;
+  while(head != NULL){
+    len++;
+    head = head->next;
+  }
+  return len;
+}
+
 void display_list(Node* head){
   Node* current = head;
   while(current != NULL){

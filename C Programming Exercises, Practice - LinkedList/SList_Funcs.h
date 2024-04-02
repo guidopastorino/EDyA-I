@@ -18,6 +18,8 @@ void insert_begin(Node** head, int data);
 
 void insert_end(Node** head, int data);
 
+int list_length(Node* head);
+
 void display_list(Node* head);
 
 void free_list(Node* head);
