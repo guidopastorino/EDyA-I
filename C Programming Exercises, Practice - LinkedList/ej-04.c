@@ -1,4 +1,4 @@
-// 6. Write a program in C to insert a node in the middle of a Singly Linked List.
+// Write a program in C to insert a node in the middle of a Singly Linked List.
 // Test Data and Expected Output :
 
 // Input the number of nodes (3 or more) : 4                                                                    

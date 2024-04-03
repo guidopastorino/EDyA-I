@@ -1,4 +1,4 @@
-// 8. Write a program in C to delete a node from the middle of a Singly Linked List.
+// Write a program in C to delete a node from the middle of a Singly Linked List.
 // Test Data and Expected Output :
 
 // Input the number of nodes : 3                                                                                
