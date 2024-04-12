@@ -1,3 +1,16 @@
+// Write a C program to merge k sorted linked lists into a single sorted linked list.
+// Test Data and Expected Output :
+
+// List-1:
+// 10 20 50 
+// List-2:
+// 30 40 60 
+// List-3:
+// 10 70 100 
+
+// After merging the said three sorted lists into one sorted list:
+// 10 10 20 30 40 50 60 70 100 
+
 #include "SList_Funcs.h"
 
 Node* merge_lists(Node* l1, Node* l2){
