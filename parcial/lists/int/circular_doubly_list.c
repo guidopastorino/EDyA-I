@@ -205,7 +205,26 @@ CDNode* list_intercale(CDNode* tail1, CDNode* tail2);
 
 CDNode* list_intersection(CDNode* tail1, CDNode* tail2);
 
-CDNode* list_filter(CDNode* tail, Predicate p);
+// filtering the even numbers
+int predicate(int data){
+  if((data % 2) == 0){
+    return 1;
+  }
+  return 0;
+}
+
+CDNode* list_filter(CDNode* tail, Predicate p){
+  CDNode* result = NULL;
+  CDNode* current = tail->next;
+  do {
+    if(!p(current->data)){
+      result = insert_end(result, current->data);
+    }
+    current = current->next;
+  } while(current != tail->next);
+  if(list_length(result) == 0) return NULL;
+  return result;
+}
 
 int main(){
   CDNode* tail = NULL;
@@ -213,12 +232,15 @@ int main(){
   tail = insert_middle(tail, 20);
   tail = insert_middle(tail, 30);
   tail = insert_middle(tail, 40);
+  tail = insert_middle(tail, 45);
   tail = insert_middle(tail, 50);
   
   display_list(tail, TRAVERSE_FORWARD);
 
-  CDNode* partition = list_partition(tail);
-  display_list(partition, TRAVERSE_FORWARD);
+  int (*p)(int) = &predicate;
+
+  CDNode* result = list_filter(tail, p);
+  display_list(result, TRAVERSE_FORWARD);
 
   return 0;
 }
