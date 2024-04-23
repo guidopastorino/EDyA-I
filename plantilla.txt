@@ -1,0 +1,56 @@
+// LISTA SIMPLEMENTE ENLAZADA 
+// LISTA DOBLEMENTE ENLAZADA 
+// LISTA SIMPLE CIRCULAR ENLAZADA 
+// LISTA DOBLE CIRCULAR ENLAZADA 
+// ☑️
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+typedef struct _SNode {
+  int data;
+  struct _SNode* next;
+} SNode;
+
+// función comparadora que toma dos enteros y retorna los mismos valores que strcmp
+typedef int(*FuncVisitante)(int, int);
+
+SNode* create_node(int data);
+
+void insert_begin(SNode** head, int data);
+
+void insert_end(SNode** head, int data);
+
+void insert_position(SNode** head, int pos, int data);
+
+void insert_middle(SNode** head, int data);
+
+void delete_begin(SNode** head);
+
+void delete_end(SNode** head);
+
+void delete_position(SNode** head, int pos);
+
+void delete_middle(SNode** head);
+
+void display_list(SNode* head);
+
+int list_median(SNode* head);
+
+// nodos en comun (comparten sublista)
+SNode* list_intersection(SNode* head1, SNode* head2);
+
+SNode* list_partition(SNode* head1, SNode* head2);
+
+void sort_list(SNode** head, FuncVisitante func);
+
+void insert_correct_position(SNode* head, int data, FuncVisitante func);
+
+void delete_all_subsecuences_that_adds_zero(SNode** head);
+
+int main(){
+
+
+  return 0;
+}
