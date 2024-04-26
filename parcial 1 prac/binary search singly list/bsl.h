@@ -23,4 +23,4 @@ SNode* get_node_at(SNode* head, int index);
 
 int binary_search(SNode* head, int element);
 
-#endif
+#endif /* __BSL_H_ */

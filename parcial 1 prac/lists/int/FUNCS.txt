@@ -1,0 +1,21 @@
+(opcional) crear lista
+Crear nodo
+Insertar al principio
+Insertar al final
+Insertar en posición
+Insertar en medio
+Eliminar al principio
+Eliminar al final
+Eliminar en posición
+Eliminar en medio
+Mostrar lista
+Mediana de la lista
+Contiene elemento
+Intersección de listas (intersect)
+Intercalar dos listas (interleave)
+Partición de lista
+Ordenar lista
+Insertar en posición correcta
+Eliminar todas las subsecuencias que suman cero
+Filtrar elementos que cumplen un predicado
+Revertir lista

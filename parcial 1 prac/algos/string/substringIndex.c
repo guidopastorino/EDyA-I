@@ -17,12 +17,11 @@ int substring_index(char str[], char sub[]){
 }
 
 int main(){
-  char str[] = "abracadabra";
-  char sub[] = "dabra";
+  char str[] = "hola";
+  char sub[] = "ola";
 
   int index = substring_index(str, sub);
   printf("%d\n", index);
-  printf("%c", str[index]);
 
   return 0;
 }
