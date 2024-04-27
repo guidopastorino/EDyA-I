@@ -1,6 +1,6 @@
 TARGET = ej-$(NUMERO)
 
-SRCS = ej-$(NUMERO).c SList_Funcs.c
+SRCS = ej-$(NUMERO).c DList_Funcs.c
 
 CC = gcc
 CFLAGS = -Wall -Wextra
