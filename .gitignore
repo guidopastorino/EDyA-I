@@ -2,3 +2,4 @@
 *.exe
 /str algos
 /sorting algos
+/*.c

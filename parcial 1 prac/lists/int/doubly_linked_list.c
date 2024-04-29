@@ -74,21 +74,21 @@ void insert_middle(DNode** head, int data){
   if(*head == NULL){
     insert_begin(head, data);
   } else {
-    DNode* prev = NULL;
     DNode* slow = *head;
     DNode* fast = *head;
     while(fast && fast->next){
-      prev = slow;
-      slow = slow->next;
       fast = fast->next->next;
+      if(fast != NULL){
+        slow = slow->next;
+      }
     }
     DNode* newNode = create_node(data);
-    if(prev){
-      prev->next = newNode;
-      newNode->prev = prev;
-    }
-    newNode->next = slow;
-    slow->prev = newNode;
+    // 'slow' apunta al nodo previo de insercion
+    newNode->prev = slow;
+    newNode->next = slow->next;
+    if(slow->next != NULL)
+      slow->next->prev = newNode;
+    slow->next = newNode;
   }
 }
 
@@ -140,27 +140,24 @@ void delete_pos(DNode** head, int pos){
 }
 
 // Eliminar en medio
-void delete_mid(DNode** head){
+void delete_middle(DNode** head){
   assert(*head != NULL);
   if((*head)->next == NULL){
     delete_begin(head);
-    return;
+  } else {
+    DNode* prev = NULL;
+    DNode* slow = *head;
+    DNode* fast = *head;
+    while(fast && fast->next){
+      prev = slow;
+      slow = slow->next;
+      fast = fast->next->next;
+    }
+    prev->next = slow->next;
+    if(slow->next)
+      slow->next->prev = prev;
+    free(slow);
   }
-  DNode* slow = *head;
-  DNode* fast = (*head)->next;
-  while(fast && fast->next){
-    slow = slow->next;
-    fast = fast->next->next;
-  }
-  if(slow->prev != NULL)
-    slow->prev->next = slow->next;
-  else
-    *head = slow->prev;
-
-  if(slow->next != NULL)
-    slow->next->prev = slow->prev;
-
-  free(slow);
 }
 
 // Mostrar lista

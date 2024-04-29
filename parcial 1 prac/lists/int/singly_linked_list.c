@@ -64,21 +64,18 @@ SNode* insert_position(SNode* head, int pos, int data){
 // Insertar en medio
 SNode* insert_middle(SNode* head, int data){
   if(head == NULL){
-    head = insert_begin(head, data);
-    return head;
+    insert_end(head, data);
+  } else {
+    SNode* slow = head;
+    SNode* fast = head;
+    while(fast->next && fast->next->next){
+      slow = slow->next;
+      fast = fast->next->next;
+    }
+    SNode* newNode = create_node(data);
+    newNode->next = slow->next;
+    slow->next = newNode;
   }
-  SNode* prev = NULL;
-  SNode* slow = head;
-  SNode* fast = head;
-  while(fast && fast->next){
-    prev = slow;
-    slow = slow->next;
-    fast = fast->next->next;
-  }
-  SNode* newNode = create_node(data);
-  // prev apunta al nodo anterior al de insertar
-  prev->next = newNode;
-  newNode->next = slow;
   return head;
 }
 
