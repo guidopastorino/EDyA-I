@@ -111,7 +111,7 @@ void display_list(SNode* head){
 int main(){
   SNode* head = NULL;
 
-  for(int i = 10; i<=50; i+=10){
+  for(int i = 10; i<=30; i+=10){
     head = insert_end_recursive(head, i);
   }
   display_list(head);
