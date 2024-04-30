@@ -54,16 +54,16 @@ SNode* merge(SNode* left, SNode* right) {
     return result;
 }
 
-void split(SNode* source, SNode** front, SNode** back) {
+void split(SNode* list, SNode** left, SNode** right) {
     SNode* slow;
     SNode* fast;
 
-    if (source == NULL || source->next == NULL) {
-        *front = source;
-        *back = NULL;
+    if (list == NULL || list->next == NULL) {
+        *left = list;
+        *right = NULL;
     } else {
-        slow = source;
-        fast = source->next;
+        slow = list;
+        fast = list->next;
 
         while (fast != NULL) {
             fast = fast->next;
@@ -73,8 +73,8 @@ void split(SNode* source, SNode** front, SNode** back) {
             }
         }
 
-        *front = source;
-        *back = slow->next;
+        *left = list;
+        *right = slow->next;
         slow->next = NULL;
     }
 }
