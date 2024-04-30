@@ -1,5 +1,4 @@
 /.vscode
 *.exe
-/str algos
-/sorting algos
-/*.c
+# /*.c
+# /int lists refactored
