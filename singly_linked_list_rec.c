@@ -37,7 +37,7 @@ SNode* insert_end_recursive(SNode* head, int data){
 
 // Insertar en posición recursivamente
 SNode* insert_position_recursive(SNode* head, int pos, int data){
-  if(pos == 0 || head == NULL){
+  if(pos == 1 || head == NULL){
     return insert_begin_recursive(head, data);
   }
   head->next = insert_position_recursive(head->next, pos - 1, data);
@@ -49,7 +49,7 @@ SNode* insert_middle_recursive(SNode* head, int data){
   if(head == NULL){
     return create_node(data);
   }
-  head->next = insert_position_recursive(head->next, 1, data);
+  head->next = insert_position_recursive(head->next, 2, data);
   return head;
 }
 
@@ -112,13 +112,18 @@ int main(){
   SNode* head = NULL;
 
   for(int i = 10; i<=50; i+=10){
-    head = insert_end(head, i);
+    head = insert_end_recursive(head, i);
   }
   display_list(head);
 
-  SNode* list = reverse_list(head);
+  head = insert_position_recursive(head, 2, 300);
 
-  display_list(list);
+  display_list(head);
+
+  head = insert_middle_recursive(head, 500);
+
+  display_list(head);
+
 
   return 0;
 }
