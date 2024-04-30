@@ -37,6 +37,8 @@ void display_list(SNode* head) {
     printf("NULL\n");
 }
 
+// -------------------------------------------
+
 SNode* merge(SNode* left, SNode* right) {
     SNode* result = NULL;
     if (left == NULL) return right;
