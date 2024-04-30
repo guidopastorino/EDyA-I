@@ -38,19 +38,17 @@ void display_list(SNode* head){
 }
 
 void insertionSort(SNode** head){
-  if (*head == NULL || (*head)->next == NULL) return;
-
-  SNode* sorted = NULL;
+  if(*head == NULL || (*head)->next == NULL) return;
   SNode* current = *head;
-
-  while (current != NULL) {
+  SNode* sorted = NULL;
+  while(current != NULL){
     SNode* next = current->next;
-    if (sorted == NULL || current->data < sorted->data) {
+    if(sorted == NULL || current->data < sorted->data){
       current->next = sorted;
       sorted = current;
     } else {
       SNode* search = sorted;
-      while (search->next != NULL && search->next->data < current->data) {
+      while(search->next != NULL && search->next->data < current->data){
         search = search->next;
       }
       current->next = search->next;
