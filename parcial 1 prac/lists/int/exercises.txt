@@ -1,4 +1,0 @@
-Given a singly-linked linear list, write a function to convert it to a circular list.
-Write a function to print out the information stored in a circular list.
-Write a function to count the nodes in a circular list.
-Given two circular lists A and B, write an O(1) function to join them into one circular list A, leaving the other list B empty.
