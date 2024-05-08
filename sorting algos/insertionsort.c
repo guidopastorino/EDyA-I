@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
+#include "ArrFuncs.h"
 
 typedef struct _SNode {
   int data;
