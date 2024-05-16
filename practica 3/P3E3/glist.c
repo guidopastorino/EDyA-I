@@ -50,7 +50,7 @@ void glist_agregar_inicio(GList list, void *data, FuncionCopia copy) {
   newNode->data = copy(data);
 }
 
-void glist_agregar_final (GList list, void* data, FuncionCopia copy) {
+void glist_agregar_final(GList list, void* data, FuncionCopia copy) {
   GNode *newNode = malloc(sizeof(GNode));
   assert(newNode != NULL);
   newNode->next = NULL;

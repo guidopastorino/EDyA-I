@@ -1,6 +1,7 @@
 #ifndef PILA_H
 
 #include "tipos.h"
+#include "glist.h"
 
 typedef struct _Pila* Pila;
 

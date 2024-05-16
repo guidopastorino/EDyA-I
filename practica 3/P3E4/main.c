@@ -19,13 +19,20 @@ void destruirDato(void* dato){
 int main(){
   GQueue* queue = gqueue_crear();
 
-  char* str1 = "Cadena";
-  char* str2 = "String";
+  char* str1 = "Hola";
+  char* str2 = "Mundo";
+  char* str3 = "Cadena";
 
   queue = gqueue_encolar(queue, str1, copiarString);
   gqueue_recorrer(queue, imprimirString);
 
   queue = gqueue_encolar(queue, str2, copiarString);
+  gqueue_recorrer(queue, imprimirString);
+
+  gqueue_desencolar(queue, destruirDato);
+  gqueue_recorrer(queue, imprimirString);
+
+  queue = gqueue_encolar(queue, str3, copiarString);
   gqueue_recorrer(queue, imprimirString);
 
   gqueue_desencolar(queue, destruirDato);
