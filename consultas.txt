@@ -1,9 +1,0 @@
-función no_destruir P3E3 (donde se ordena la pila)
-Implementación Queue genérica con listas enlazadas
-función copia dsa generic (copia física)
-	- para cada tipo de dato hay que definir una función copa distinta (si solo recibe el dato void* como parámetro) (se hace casteo y se copia en nuevo dato)
-	- se puede implementar memcpy con el tamaño del dato?
-Para copiar un dato, que es preferible? copia simbolica o fisica? pedir mucha memoria? hacer realloc?
-P3E2 gpila.c stack_arr esta bien?
-avl tree rotations
-Al hacer 'swap' de datos de nodos genericos, hay algun conflicto? o solo cambia la direccion a la que apuntan? (ejemplo, de nodos enteros int)
