@@ -1,0 +1,103 @@
+7. Dibuje el resultado de insertar en un ABB vacío la siguiente secuencia de números:
+10, 20, 15, 25, 30, 16, 18, 19.
+Dibuje además el resultado de eliminar del mismo el número 20.
+
+1. Insertamos 10 como raíz
+          10                                
+                                            
+2. Insertamos 20 como hijo derecho de 10 (ya que 20 es mayor que 10)
+          10                                               
+            \                                 
+             20                               
+                                            
+3. Insertamos 15 como hijo izquierdo de 20 (ya que 15 es menor que 20 pero mayor que 10)
+          10                                               
+            \                                 
+             20                                             
+            /                               
+          15                                 
+                                            
+4. Insertamos 25 como hijo derecho de 20 (ya que 25 es mayor que 20 y mayor que 10)
+          10                                               
+            \                                 
+             20                                             
+            /  \                            
+          15    25                                                                         
+                                            
+5. Insertamos 30 como hijo derecho de 25 (ya que 30 es mayor que 25, mayor que 20 y mayor que 10)
+          10                                               
+            \                                 
+             20                                             
+            /  \                            
+          15    25                                                                                                                     
+                  \                           
+                   30                         
+
+6. Insertamos 16 como hijo derecho de 15 (ya que 16 es mayor que 15, menor que 20 y mayor que 10)
+          10                                               
+            \                                 
+             20                                             
+            /  \                            
+          15    25                                                                                                                     
+           \      \                           
+            16     30                         
+                                            
+7. Insertamos 18 como hijo derecho de 16 (ya que 18 es mayor que 16, mayor que 15, menor que 20 y mayor que 10)
+          10                                               
+            \                                 
+             20                                             
+            /  \                            
+          15    25                                                                                                                     
+           \      \                           
+            16     30                                                                     
+              \                              
+               18                             
+                                            
+8. Insertamos 19 como hijo derecho de 18 (ya que 19 es mayor que 18, mayor que 16, mayor que 15, menor que 20 y mayor que 10)
+          10                                               
+            \                                 
+             20                                             
+            /  \                            
+          15    25                                                                                                                     
+           \      \                           
+            16     30                                                                     
+              \                              
+               18                                                                         
+                 \                           
+                  19                          
+                                            
+# Eliminar el número 20
+
+9. Verificamos cuantos subárboles tiene 20 (en este caso 2)
+  - Tenemos dos opciones:
+    - Puede ser reemplazado por el sucesor inorden (nodo con el valor más pequeño en el subárbol derecho)
+    - Puede ser reemplazado por el predecesor inorden (nodo con el valor más alto en el subárbol izquierdo)
+    En este caso, se tiene que puede ser reemplazado por 15 o 25, en este caso, elegiremos el sucesor inorden (25)
+
+10. Intercambiamos los valores (hacemos swap de valores entre los dos nodos).                                           
+          10                                               
+            \                                 
+             25                                             
+            /  \                            
+          15    20                                                                                                                     
+           \      \                           
+            16     30                                                                     
+              \                              
+               18                                                                         
+                 \                           
+                  19                                                              
+
+11. Buscamos el nodo con el valor más pequeño del subárbol derecho (find_min). En este caso, es 20
+
+12. Eliminamos el nodo del árbol (20).
+          10                                               
+            \                                 
+             25                                             
+            /  \                            
+          15    30                                                                                                                     
+           \                                 
+            16                                                                         
+              \                              
+               18                                                                         
+                 \                           
+                  19               

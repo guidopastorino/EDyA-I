@@ -1,0 +1,19 @@
+Análisis de la Cantidad de Nodos Explorados por bstree_buscar
+ABB con Estructura de Lista
+En el peor de los casos, cuando se busca un elemento en un ABB con estructura de lista, la función bstree_buscar debe explorar todos los nodos desde la raíz hasta el nodo buscado. Por lo tanto, si el árbol tiene 𝑛 nodos, la cantidad de nodos explorados en el peor caso es 𝑂(𝑛)
+
+ABB con Estructura de Árbol Completo
+En un ABB completamente balanceado (árbol completo), la altura del árbol es 𝑂(log ⁡𝑛). En este caso, bstree_buscar solo necesita explorar los nodos desde la raíz hasta una hoja, lo que implica 𝑂(log ⁡𝑛) nodos en el peor caso.
+
+Comparación de Eficiencia
+ABB Desbalanceado (Estructura de Lista): La cantidad de nodos explorados en el peor caso es lineal con respecto al número de nodos, es decir, 𝑂(𝑛)
+ABB Balanceado (Árbol Completo): La cantidad de nodos explorados en el peor caso es logarítmica con respecto al número de nodos, es decir, 𝑂(log ⁡𝑛).
+
+Conclusión sobre la Eficiencia de bstree_buscar
+La eficiencia de la función bstree_buscar se ve significativamente afectada por el balance del ABB:
+
+Desbalanceado: Cuando el ABB tiene una estructura de lista, la búsqueda se degrada a una complejidad lineal 𝑂(𝑛) lo cual es ineficiente para grandes cantidades de nodos.
+Balanceado: En un ABB balanceado, la búsqueda tiene una complejidad logarítmica 𝑂(log ⁡𝑛), lo cual es mucho más eficiente y deseable.
+
+
+∴ Esto subraya la importancia de mantener los árboles balanceados.
