@@ -14,7 +14,6 @@ typedef enum {
 
 typedef struct _AVL *AVL;
 
-
 /**
  * Estructura del nodo del arbol AVL.
  * Tiene un puntero al dato (dato),
@@ -26,6 +25,7 @@ typedef struct _AVL_Nodo {
   void* dato;
   struct _AVL_Nodo* izq, * der;
   int altura;
+  int factor_balance;
 } AVL_Nodo;
 
 /**

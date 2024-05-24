@@ -83,6 +83,15 @@ static int avl_nodo_altura(AVL_Nodo* raiz) {
 }
 
 /**
+ * Actualiza el factor balance de un nodo luego de x operación
+ */
+void actualizar_factor_balance(AVL_Nodo* nodo){
+  if(nodo){
+    nodo->factor_balance = avl_nodo_altura(nodo->izq) - avl_nodo_altura(nodo->der);
+  }
+}
+
+/**
  * avl_nodo_max_altura_hijos: Funcion interna que retorna la maxima altura de
  * los hijos.
  */
@@ -117,6 +126,10 @@ static AVL_Nodo* avl_nodo_rotacion_simple_izq(AVL_Nodo* raiz) {
   // actualizar alturas
   raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
   hijoDer->altura = 1 + avl_nodo_max_altura_hijos(hijoDer);
+  // actualizar factor balance
+  actualizar_factor_balance(raiz);
+  actualizar_factor_balance(hijoDer);
+  // devolver la nueva raíz
   return hijoDer;
 }
 
@@ -133,6 +146,10 @@ static AVL_Nodo* avl_nodo_rotacion_simple_der(AVL_Nodo* raiz) {
   // actualizar alturas
   raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
   hijoIzq->altura = 1 + avl_nodo_max_altura_hijos(hijoIzq);
+  // actualizar factor balance
+  actualizar_factor_balance(raiz);
+  actualizar_factor_balance(hijoIzq);
+  // devolver la nueva raíz
   return hijoIzq;
 }
 
@@ -146,6 +163,7 @@ static AVL_Nodo* avl_nodo_crear(void* dato, FuncionCopiadora copia) {
   nuevoNodo->dato = copia(dato);
   nuevoNodo->izq = nuevoNodo->der = NULL;
   nuevoNodo->altura = 0;
+  nuevoNodo->factor_balance = 0; // un nodo sin hijos tiene factor balance 0
   return nuevoNodo;
 }
 
