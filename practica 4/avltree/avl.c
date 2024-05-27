@@ -171,36 +171,75 @@ static AVL_Nodo* avl_nodo_crear(void* dato, FuncionCopiadora copia) {
  * avl_insertar: Inserta un dato no repetido en el arbol, manteniendo la
  * propiedad de los arboles AVL.
  */
-static AVL_Nodo* avl_nodo_insertar(AVL_Nodo* raiz, void* dato,
-  FuncionCopiadora copia, FuncionComparadora comp) {
-  if (raiz == NULL) // insertamos el nuevo elemento
-    return avl_nodo_crear(dato, copia);
-  else if (comp(dato, raiz->dato) < 0) { // el dato debe ir en el subarbol izq
-    raiz->izq = avl_nodo_insertar(raiz->izq, dato, copia, comp);
-    // chequear balance
-    if (avl_nodo_factor_balance(raiz) == -2) {
-      // casos 1 o 2
-      if (avl_nodo_factor_balance(raiz->izq) == 1) // caso 2
-        raiz->izq = avl_nodo_rotacion_simple_izq(raiz->izq);
-      raiz = avl_nodo_rotacion_simple_der(raiz); // caso 1
-    }
-    raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
+// INSERCIÓN SIN MODIFICAR EL FACTOR BALANCE DEL NODO (OLD VERSION)
+// static AVL_Nodo* avl_nodo_insertar(AVL_Nodo* raiz, void* dato, FuncionCopiadora copia, FuncionComparadora comp) {
+//   if (raiz == NULL) // insertamos el nuevo elemento
+//     return avl_nodo_crear(dato, copia);
+//   else if (comp(dato, raiz->dato) < 0) { // el dato debe ir en el subarbol izq
+//     raiz->izq = avl_nodo_insertar(raiz->izq, dato, copia, comp);
+//     // chequear balance
+//     if (avl_nodo_factor_balance(raiz) == -2) {
+//       // casos 1 o 2
+//       if (avl_nodo_factor_balance(raiz->izq) == 1) // caso 2
+//         raiz->izq = avl_nodo_rotacion_simple_izq(raiz->izq);
+//       raiz = avl_nodo_rotacion_simple_der(raiz); // caso 1
+//     }
+//     raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
+//     return raiz;
+//   }
+//   else if (comp(raiz->dato, dato) < 0) { // el dato debe ir en el subarbol der
+//     raiz->der = avl_nodo_insertar(raiz->der, dato, copia, comp);
+//     // chequear balance
+//     if(avl_nodo_factor_balance(raiz) == 2){
+//       // casos 3 o 4
+//       if(avl_nodo_factor_balance(raiz->der) == -1) // caso 4
+//         raiz->der = avl_nodo_rotacion_simple_der(raiz->der);
+//       raiz = avl_nodo_rotacion_simple_izq(raiz); // caso 3
+//     }
+//     raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
+//     return raiz;
+//   }
+//   else // no agregar elementos repetidos
+//     return raiz;
+// }
+
+// INSERCIÓN MODIFICANDO EL FACTOR BALANCE DEL NODO
+static AVL_Nodo* avl_nodo_insertar(AVL_Nodo* raiz, void* dato, FuncionCopiadora copia, FuncionComparadora cmp){
+  if(raiz == NULL) return avl_nodo_crear(dato, copia);
+  if(cmp(dato, raiz->dato) < 0){
+    raiz->izq = avl_nodo_insertar(raiz->izq, dato, copia, cmp);
+  } else if(cmp(raiz->dato, dato) < 0){
+    raiz->der = avl_nodo_insertar(raiz->der, dato, copia, cmp);
+  } else {
     return raiz;
   }
-  else if (comp(raiz->dato, dato) < 0) { // el dato debe ir en el subarbol der
-    raiz->der = avl_nodo_insertar(raiz->der, dato, copia, comp);
-    // chequear balance
-    if(avl_nodo_factor_balance(raiz) == 2){
-      // casos 3 o 4
-      if(avl_nodo_factor_balance(raiz->der) == -1) // caso 4
-        raiz->der = avl_nodo_rotacion_simple_der(raiz->der);
-      raiz = avl_nodo_rotacion_simple_izq(raiz); // caso 3
+  // actualizar altura
+  raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
+  // actualizar factor balance
+  actualizar_factor_balance(raiz);
+  
+  int balance = avl_nodo_factor_balance(raiz);
+
+  // chequear balances
+  if (balance < -1) {
+    if (cmp(dato, raiz->izq->dato) < 0) {
+      return avl_nodo_rotacion_simple_der(raiz);
+    } else {
+      raiz->izq = avl_nodo_rotacion_simple_izq(raiz->izq);
+      return avl_nodo_rotacion_simple_der(raiz);
     }
-    raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
-    return raiz;
   }
-  else // no agregar elementos repetidos
-    return raiz;
+
+  if (balance > 1) {
+    if (cmp(dato, raiz->der->dato) > 0) {
+      return avl_nodo_rotacion_simple_izq(raiz);
+    } else {
+      raiz->der = avl_nodo_rotacion_simple_der(raiz->der);
+      return avl_nodo_rotacion_simple_izq(raiz);
+    }
+  }
+
+  return raiz;
 }
 
 void avl_insertar(AVL arbol, void* dato) {
@@ -222,14 +261,69 @@ AVL_Nodo* encontrar_minimo(AVL_Nodo* raiz){
  * Elimina un nodo en el árbol si es que está presente, manteniendo la propiedad
  * de los árboles AVL.
  */
+// ELIMINACIÓN SIN MODIFICAR EL FACTOR BALANCE DEL NODO (OLD VERSION)
+// AVL_Nodo* avl_nodo_eliminar(AVL_Nodo* raiz, void* dato, FuncionComparadora cmp, FuncionDestructora destr){
+//   if(raiz == NULL) return NULL;
+//   if(cmp(dato, raiz->dato) < 0){
+//     raiz->izq = avl_nodo_eliminar(raiz->izq, dato, cmp, destr);
+//   } else if(cmp(dato, raiz->dato) > 0){
+//     raiz->der = avl_nodo_eliminar(raiz->der, dato, cmp, destr);
+//   } else {
+//     // nodo con 1 solo hijo o ninguno
+//     if(raiz->izq == NULL || raiz->der == NULL){
+//       AVL_Nodo* temp = raiz->izq ? raiz->izq : raiz->der;
+//       if(temp == NULL){
+//         temp = raiz;
+//         raiz = NULL;
+//       } else {
+//         *raiz = *temp;
+//       }
+//       destr(temp);
+//     }
+//     // nodo con 2 hijos (encontrar el sucesor inorder más pequeño del subarbol derecho)
+//     else {
+//       AVL_Nodo* temp = encontrar_minimo(raiz->der);
+//       raiz->dato = temp->dato;
+//       raiz->der = avl_nodo_eliminar(raiz->der, dato, cmp, destr);
+//     }
+//   }
+//   if(raiz == NULL) return NULL; // raiz con 1 solo nodo (eliminado), por lo tanto, la raíz será nula
+//   // actualizar altura
+//   raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
+//   // obtener factor balance
+//   int factor_balance = avl_nodo_factor_balance(raiz);
+//   // verificar casos de desbalanceo
+//   // LL inbalance
+//   if(factor_balance > 1 && avl_nodo_factor_balance(raiz->izq) >= 0){
+//     return avl_nodo_rotacion_simple_der(raiz);
+//   }
+//   // RR inbalance
+//   if(factor_balance < -1 && avl_nodo_factor_balance(raiz->der) <= 0){
+//     return avl_nodo_rotacion_simple_izq(raiz);
+//   }
+//   // LR inbalance
+//   if(factor_balance > 1 && avl_nodo_factor_balance(raiz->izq) < 0){
+//     raiz->izq = avl_nodo_rotacion_simple_izq(raiz->izq);
+//     return avl_nodo_rotacion_simple_der(raiz);
+//   }
+//   // RL inbalance
+//   if(factor_balance < -1 && avl_nodo_factor_balance(raiz->der) > 0){
+//     raiz->der = avl_nodo_rotacion_simple_der(raiz->der);
+//     return avl_nodo_rotacion_simple_izq(raiz);
+//   }
+//   return raiz;
+// }
+
 AVL_Nodo* avl_nodo_eliminar(AVL_Nodo* raiz, void* dato, FuncionComparadora cmp, FuncionDestructora destr){
-  if(raiz == NULL) return NULL;
+  if(raiz == NULL){
+    return NULL;
+  }
   if(cmp(dato, raiz->dato) < 0){
     raiz->izq = avl_nodo_eliminar(raiz->izq, dato, cmp, destr);
   } else if(cmp(dato, raiz->dato) > 0){
     raiz->der = avl_nodo_eliminar(raiz->der, dato, cmp, destr);
   } else {
-    // nodo con 1 solo hijo o ninguno
+    // nodo con 1 hijo o ninguno
     if(raiz->izq == NULL || raiz->der == NULL){
       AVL_Nodo* temp = raiz->izq ? raiz->izq : raiz->der;
       if(temp == NULL){
@@ -237,47 +331,47 @@ AVL_Nodo* avl_nodo_eliminar(AVL_Nodo* raiz, void* dato, FuncionComparadora cmp, 
         raiz = NULL;
       } else {
         *raiz = *temp;
-      }
-      destr(temp);
-    }
-    // nodo con 2 hijos (encontrar el sucesor inorder más pequeño del subarbol derecho)
-    else {
+      } 
+      free(temp);
+    } else {
+      // nodo con 2 hijos
       AVL_Nodo* temp = encontrar_minimo(raiz->der);
       raiz->dato = temp->dato;
-      raiz->der = avl_nodo_eliminar(raiz->der, dato, cmp, destr);
+      raiz->der = avl_nodo_eliminar(raiz->der, temp->dato, cmp, destr);
     }
   }
-  if(raiz == NULL) return NULL; // raiz con 1 solo nodo (eliminado), por lo tanto, la raíz será nula
-  // actualizar altura
-  raiz->altura = 1 + avl_nodo_max_altura_hijos(raiz);
-  // obtener factor balance
-  int factor_balance = avl_nodo_factor_balance(raiz);
-  // verificar casos de desbalanceo
-  // LL inbalance
-  if(factor_balance > 1 && avl_nodo_factor_balance(raiz->izq) >= 0){
-    return avl_nodo_rotacion_simple_der(raiz);
+
+  if(raiz == NULL) return NULL;
+
+  raiz->altura = avl_nodo_max_altura_hijos(raiz) + 1;
+  actualizar_factor_balance(raiz);
+
+  int balance = raiz->factor_balance;
+
+  if(balance > 1){
+    if(avl_nodo_factor_balance(raiz->izq) >= 0){
+      return avl_nodo_rotacion_simple_der(raiz);
+    } else {
+      raiz->izq = avl_nodo_rotacion_simple_izq(raiz->izq);
+      return avl_nodo_rotacion_simple_der(raiz);
+    }
   }
-  // RR inbalance
-  if(factor_balance < -1 && avl_nodo_factor_balance(raiz->der) <= 0){
-    return avl_nodo_rotacion_simple_izq(raiz);
+
+  if(balance < -1){
+    if(avl_nodo_factor_balance(raiz->der) <= 0){
+      return avl_nodo_rotacion_simple_izq(raiz);
+    } else {
+      raiz->der = avl_nodo_rotacion_simple_der(raiz->der);
+      return avl_nodo_rotacion_simple_izq(raiz);
+    }
   }
-  // LR inbalance
-  if(factor_balance > 1 && avl_nodo_factor_balance(raiz->izq) < 0){
-    raiz->izq = avl_nodo_rotacion_simple_izq(raiz->izq);
-    return avl_nodo_rotacion_simple_der(raiz);
-  }
-  // RL inbalance
-  if(factor_balance < -1 && avl_nodo_factor_balance(raiz->der) > 0){
-    raiz->der = avl_nodo_rotacion_simple_der(raiz->der);
-    return avl_nodo_rotacion_simple_izq(raiz);
-  }
+
   return raiz;
 }
 
 void avl_eliminar(AVL arbol, void* dato){
   arbol->raiz = avl_nodo_eliminar(arbol->raiz, dato, arbol->comp, arbol->destr);
 }
-
 
 
 /**

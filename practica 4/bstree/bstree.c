@@ -163,4 +163,24 @@ int btree_validar(BSTree arbol, FuncionComparadora cmp){
   return btree_validar_aux(arbol, NULL, NULL, cmp);
 }
 
+/**
+ * Busca en el árbol binario de búsqueda el menor entero mayor a k.
+ */
+static void* bstree_cota_inferior_aux(BSTree arbol, int k){
+  if(arbol == NULL) return NULL;
+  if(*(int*)arbol->dato <= k){
+    return bstree_cota_inferior_aux(arbol->der, k);
+  } else {
+    void* candidato_izq = bstree_cota_inferior_aux(arbol->izq, k);
+    if(candidato_izq != NULL){
+      return candidato_izq;
+    } else {
+      return arbol->dato;
+    }
+  }
+}
 
+void* bstree_cota_inferior(BSTree arbol, int k){
+  if(arbol == NULL) return NULL;
+  return bstree_cota_inferior_aux(arbol, k);
+}

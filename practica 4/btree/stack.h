@@ -15,5 +15,4 @@ void push(StackNode* top, BTree treeNode);
 
 BTree pop(StackNode* top);
 
-
 #endif

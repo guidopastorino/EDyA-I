@@ -294,3 +294,36 @@ void btree_recorrer_bfs_recursivo(BTree arbol, FuncionVisitante visit){
   }
   printf("\n");
 }
+
+/*
+ * dado un árbol binario, genera el árbol binario espejo, donde el hijo derecho de cada nodo pasa a ser izquierdo y el izquierdo pasa a ser derecho.
+*/
+BTree btree_mirror(BTree arbol){
+  if(arbol == NULL) return NULL;
+
+  BTree mirror_node = (BTree)malloc(sizeof(struct _BTNodo));
+  assert(mirror_node != NULL);
+  
+  mirror_node->dato = arbol->dato;
+
+  mirror_node->left = btree_mirror(arbol->left);
+  mirror_node->right = btree_mirror(arbol->right);
+
+  return mirror_node;
+}
+
+/*
+ * Determina si un arbol binario es completo o no (todos los niveles tienen dos hijos y las hojas por lo menos están ubicadas de izq a der)
+*/
+static int btree_es_completo_aux(BTree arbol, int index, int count){
+  if(arbol == NULL) return 1;
+  if(index >= count) return 0;
+  return btree_es_completo_aux(arbol->left, 2 * index + 1, count) && btree_es_completo_aux(arbol->right, 2 * index + 2, count);
+}
+
+int btree_es_completo(BTree arbol){
+  if(arbol == NULL) return 1;
+  int index = 0;
+  int count = btree_nnodos(arbol);
+  return btree_es_completo_aux(arbol, index, count);
+}

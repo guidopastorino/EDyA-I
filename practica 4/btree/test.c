@@ -47,15 +47,25 @@ int main() {
   printf("Nodo con valor 3 en el arbol: %d\n", btree_buscar_compact(raiz, 3));
   printf("Suma de los nodos del arbol: %d\n", btree_sumar_compact(raiz));
 
-
   printf("Arbol copia: \n");
   BTree arbol_copia = btree_copiar(raiz);
   btree_recorrer(arbol_copia, BTREE_RECORRIDO_IN, imprimir_entero); // 1 2 4 3
   puts("");
   printf("Nodos arbol copia: %d\n", btree_nnodos(arbol_copia));
+
+  puts("Btree Mirror: ");
+  BTree mirror = btree_mirror(arbol_copia);
+  btree_recorrer(mirror, BTREE_RECORRIDO_IN, imprimir_entero); // 1 2 4 3
+  puts("");
+  printf("Nodos arbol mirror de la copia: %d\n", btree_nnodos(mirror)); // 4
+
+  printf("Es un arbol binario completo 'raiz': %d\n", btree_es_completo(raiz));
+  printf("Es un arbol binario completo 'arbol_copia': %d\n", btree_es_completo(arbol_copia));
+  printf("Es un arbol binario completo 'mirror': %d\n", btree_es_completo(mirror));
   
   btree_destruir(raiz);
   btree_destruir(arbol_copia);
+  btree_destruir(mirror);
 
   return 0;
 }

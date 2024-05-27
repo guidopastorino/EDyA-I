@@ -64,5 +64,11 @@ void* bstree_k_esimo_menor(BSTree arbol, int k);
 int btree_validar_aux(BSTree arbol, void* min, void* max, FuncionComparadora cmp);
 int btree_validar(BSTree arbol, FuncionComparadora cmp);
 
+/**
+ * Busca en el árbol binario de búsqueda el menor entero mayor a k.
+ */
+void* bstree_cota_inferior(BSTree arbol, int k);
+
+
 
 #endif //__BSTREE_H__
