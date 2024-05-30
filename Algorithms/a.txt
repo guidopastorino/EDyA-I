@@ -1,0 +1,17 @@
+// for arrays, linked lists, and some others data structures....
+
+// SORTING ALGORITHMS
+// Insertion sort -
+// selection sort -
+// quick sort 
+// bubble sort
+// merge sort
+// Heap Sort
+
+// SEARCH ALGORITHMS
+// Linear Search - Búsqueda lineal que revisa cada elemento hasta encontrar el objetivo.
+// Binary Search - Ya lo tienes.
+// Interpolation Search - Similar a la búsqueda binaria, pero con una suposición de la posición basada en el valor buscado.
+// Exponential Search - Comienza con una búsqueda exponencial y luego realiza una búsqueda binaria.
+// Jump Search - Divide el array en bloques de tamaño fijo y busca en intervalos hasta encontrar el objetivo.
+// Fibonacci Search - Utiliza la secuencia de Fibonacci para determinar el tamaño de los subproblemas.

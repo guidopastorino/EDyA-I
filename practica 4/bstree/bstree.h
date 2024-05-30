@@ -64,11 +64,34 @@ void* bstree_k_esimo_menor(BSTree arbol, int k);
 int btree_validar_aux(BSTree arbol, void* min, void* max, FuncionComparadora cmp);
 int btree_validar(BSTree arbol, FuncionComparadora cmp);
 
-/**
+/*
+ * Convertir un árbol binario de búsqueda en un árbol binario completo
+*/
+BSTree bst_convertir_completo(BSTree arbol, FuncionCopiadora copiar);
+
+/*
  * Busca en el árbol binario de búsqueda el menor entero mayor a k.
- */
+*/
 void* bstree_cota_inferior(BSTree arbol, int k);
 
+/*
+ * visita a los datos en el intervalo [cota inf, cota sup].
+*/
+void bstree_recorrer_intervalo(BSTree arbol, void* cota_inf, void* cota_sup, FuncionComparadora cmp, FuncionVisitanteExtra visitante, void* extra);
 
+/*
+ * Dado un arbol de búsqueda binaria, reordene las referencias de los nodos de manera que se convierta en una lista doblemente circular (ordenada)
+*/
+BSTree cdlist_bstree_to_cdlist(BSTree arbol);
+
+/*
+ *  Dado un arreglo con los datos del recorrido PRE ORDER de un árbol binario de búsqueda, reconstruye el árbol
+*/
+BSTree construir_arbol_preorden(void** recorrido, int size, FuncionCopiadora copiar, FuncionComparadora cmp);
+
+/*
+ * Dada una secuencia de datos, determina si corresponde al recorrido BFS de un árbol binario de búsqueda completo y, en dicho caso, lo construya de manera eficiente. Extra: considerar el caso en que no tenemos la información de que el árbol sea completo.
+*/
+BSTree construir_bst_recorrido_bfs(void** recorrido, int size, FuncionCopiadora copiar, FuncionComparadora cmp);
 
 #endif //__BSTREE_H__
