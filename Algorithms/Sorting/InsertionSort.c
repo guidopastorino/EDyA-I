@@ -1,20 +1,44 @@
 /*
-El algoritmo de Insertion Sort es un método de ordenamiento sencillo y eficiente para listas pequeñas. Funciona de manera similar a cómo ordenarías una mano de cartas: tomas una carta a la vez y la insertas en la posición correcta en tu mano ordenada.
+  INSERTION SORT
+  
+  Insertion sort is a simple sorting algorithm that works by iteratively inserting each element of an unsorted list into its correct position in a sorted portion of the list. It is a stable sorting algorithm, meaning that elements with equal values maintain their relative order in the sorted output. It is considered an “in-place” sorting algorithm, meaning it doesn’t require any additional memory space beyond the original array.
 
-Funcionamiento paso a paso del algoritmo:
-  - Empieza en el segundo elemento del array (considerando el primer elemento como un array ordenado de un solo elemento).
-  - Compara el segundo elemento con el primero y lo inserta en la posición correcta.
-  - Luego toma el tercer elemento y lo inserta en la posición correcta entre los dos primeros.
-  - Repite este proceso para cada elemento del array, siempre insertando el elemento en la parte ya ordenada del array.
+  Time Complexity of Insertion Sort
+    - Best case: O(n), If the list is already sorted, where n is the number of elements in the list.
+    - Average case: O(n^2), If the list is randomly ordered
+    - Worst case: O(n^2), If the list is in reverse order
+
+  Advantages of Insertion Sort:
+    - Simple and easy to implement.
+    - Stable sorting algorithm.
+    - Efficient for small lists and nearly sorted lists.
+    - Space-efficient.
+
+  Disadvantages of Insertion Sort:
+    - Inefficient for large lists.
+    - Not as efficient as other sorting algorithms (e.g., merge sort, quick sort) for most cases.
+
+  Applications of Insertion Sort:
+    - Insertion sort is commonly used in situations where:
+    - The list is small or nearly sorted.
+    - Simplicity and stability are important.
+
+  Steps to sort an array using Insertion Sort:
+    - Select Current Element: Start from the second element (the first element is already considered sorted).
+    - Compare with Previous Elements: Compares the current element with the previous elements of the already sorted array.
+    - Move Elements: Moves elements larger than the current element one position forward.
+    - Insert Current Element: Inserts the current element in the correct position.
+    - Repeat: Repeat the process for each element in the array until the entire array is sorted.
 */
 
 #include "Materials.h"
 
-void insertion_sort(int* arr, int n){
-  int i, j, key;
-  for(int i = 1; i<n; i++){
-    key = arr[i];
-    j = i - 1;
+void insertion_sort(int* arr, int size){
+  for(int i = 1; i<size; i++){
+    int key = arr[i];
+    int j = i - 1;
+    // Mueve los elementos del arreglo que son mayores que el key
+    // una posición hacia adelante de su posición actual
     while(j >= 0 && key < arr[j]){
       arr[j + 1] = arr[j];
       j--;
