@@ -423,7 +423,7 @@ int avl_validar(AVL arbol) {
 }
 
 /**
- * avl_recorrer: Recorrido DSF del arbol
+ * avl_recorrer: Recorrido DFS del arbol
  */
 static void avl_nodo_recorrer(AVL_Nodo* raiz, AVLRecorrido orden,
   FuncionVisitanteExtra visita, void* extra) {

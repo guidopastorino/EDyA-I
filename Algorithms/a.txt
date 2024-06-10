@@ -3,9 +3,9 @@
 // SORTING ALGORITHMS
 // Insertion sort -
 // selection sort -
-// quick sort 
-// bubble sort
-// merge sort
+// quick sort -
+// bubble sort -
+// merge sort -
 // Heap Sort
 
 // SEARCH ALGORITHMS
